@@ -1,4 +1,4 @@
-name: Purge jsDelivr cache
+name: Build Chat Plugin FE
 
 on:
   push:
@@ -6,9 +6,40 @@ on:
       - main
 
 jobs:
-  purge:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Purge chat plugin
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Angular + Plugin
         run: |
-          curl "https://purge.jsdelivr.net/gh/MirkoFerrara/chat-plugin-fe@main/plugin/chat-plugin-fe.js"
+          npm run build
+          npm run build:plugin
+
+      - name: Commit built plugin if changed
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          
+          if [ -n "$(git status --porcelain plugin)" ]; then
+            echo "Plugin changed, committing..."
+            git add plugin
+            git commit -m "Auto-build plugin"
+            git push
+          else
+            echo "No plugin changes"
+          fi
+
+      - name: Purge jsDelivr CDN (force update @main)
+        run: |
+          curl -s "https://purge.jsdelivr.net/gh/MirkoFerrara/chat-plugin-fe@main/plugin/chat-plugin-fe.js"
