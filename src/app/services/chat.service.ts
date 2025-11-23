@@ -58,7 +58,6 @@ export class ChatService {
     ).pipe(
       tap(chatRoom => {
         console.log('✅ Chat room ottenuta:', chatRoom.id);
-        this.connect(chatRoom.id);
       }),
       catchError(err => {
         console.error('❌ Errore apertura chat', err);
@@ -69,7 +68,10 @@ export class ChatService {
 
   connect(chatId: string) {
     const existing = this.wsMap.get(chatId);
-    if (existing && existing.readyState === existing.OPEN) return;
+
+    if (existing && (existing.readyState === existing.OPEN || existing.readyState === existing.CONNECTING)) {
+      return;
+    }
 
     const ws = new W3CWebSocket(
       `${this.wsUrl}/chat?chatId=${chatId}&userId=${this.userId}&token=${this.token}`
