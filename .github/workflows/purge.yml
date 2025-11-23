@@ -1,0 +1,14 @@
+name: Purge jsDelivr cache
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  purge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Purge chat plugin
+        run: |
+          curl "https://purge.jsdelivr.net/gh/MirkoFerrara/chat-plugin-fe@main/plugin/chat-plugin-fe.js"
