@@ -3,12 +3,12 @@ const concat = require('concat');
 const path = require('path');
 
 (async function build() {
-  const distPath = './dist/chat-plugin';
+  const distPath = './dist/chat-plugin-fe';
   
-  console.log('\n🔍 Building chat-plugin...');
+  console.log('\n🔍 Building chat-plugin-fe...');
   
   if (!fs.existsSync(distPath)) {
-    console.error('❌ Cartella dist/chat-plugin non trovata!');
+    console.error(`❌ Cartella ${distPath} non trovata!`);
     return;
   }
 
@@ -31,7 +31,6 @@ const path = require('path');
   ];
 
   console.log('\n📦 Concatenando files:');
-  
   for (let file of sourceFiles) {
     const stats = fs.statSync(file);
     console.log(`   ✓ ${path.basename(file)} (${(stats.size / 1024).toFixed(2)} KB)`);
