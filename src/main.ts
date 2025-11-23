@@ -23,7 +23,7 @@ import { ChatPlugin } from './app/chat-plugin';
     injector: app.injector 
   });
 
-  customElements.define('chat-plugin', ChatPluginElement);
+  customElements.define('chat-plugin-fe', ChatPluginElement);  // ✅ Cambiato!
   
-  console.log('✅ Chat Plugin - Registered as <chat-plugin>');
+  console.log('✅ Chat Plugin - Registered as <chat-plugin-fe>');
 })();
