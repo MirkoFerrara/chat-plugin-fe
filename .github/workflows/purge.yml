@@ -2,8 +2,7 @@ name: Build Chat Plugin FE
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
   build:
@@ -16,7 +15,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: "20"
 
       - name: Install dependencies
         run: npm install
@@ -40,6 +39,6 @@ jobs:
             echo "No plugin changes"
           fi
 
-      - name: Purge jsDelivr CDN (force update @main)
+      - name: Purge jsDelivr CDN
         run: |
           curl -s "https://purge.jsdelivr.net/gh/MirkoFerrara/chat-plugin-fe@main/plugin/chat-plugin-fe.js"
