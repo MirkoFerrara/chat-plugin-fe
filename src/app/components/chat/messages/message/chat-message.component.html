@@ -4,6 +4,7 @@
     <!-- 📝 Testo -->
     <div *ngIf="part.type === 'text'" class="text">
       {{ part.content }}
+      <div class="timestamp">{{ formatTime(part.createdAt) }}</div>
     </div>
 
     <!-- 🖼️ Immagine già caricata -->

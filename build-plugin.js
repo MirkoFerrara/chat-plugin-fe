@@ -3,6 +3,7 @@ const concat = require('concat');
 const path = require('path');
 
 (async function build() {
+
   const distPath = './dist/chat-plugin-fe';
   
   console.log('\n🔍 Building chat-plugin-fe...');
@@ -15,7 +16,6 @@ const path = require('path');
   const files = fs.readdirSync(distPath);
   console.log('📂 Files trovati:', files);
 
-  // Trova i file con hash nel nome
   const polyfillsFile = files.find(f => f.startsWith('polyfills') && f.endsWith('.js'));
   const mainFile = files.find(f => f.startsWith('main') && f.endsWith('.js'));
 
@@ -31,6 +31,7 @@ const path = require('path');
   ];
 
   console.log('\n📦 Concatenando files:');
+  
   for (let file of sourceFiles) {
     const stats = fs.statSync(file);
     console.log(`   ✓ ${path.basename(file)} (${(stats.size / 1024).toFixed(2)} KB)`);

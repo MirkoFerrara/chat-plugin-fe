@@ -129,7 +129,6 @@ export class ChatService {
       ...msg,
       chatId,
       senderId: this.userId,
-      createdAt: new Date().toISOString(),
       messageId: msg.messageId || crypto.randomUUID()
     }));
   }

@@ -58,4 +58,9 @@ export class ChatMessageComponent {
     document.body.appendChild(overlay);
   }
 
+  formatTime(dateStr?: string) {
+    if (!dateStr) return '';
+    const d = new Date(dateStr);
+    return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  }
 }
